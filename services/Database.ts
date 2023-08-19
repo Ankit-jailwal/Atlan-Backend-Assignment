@@ -1,0 +1,77 @@
+import { DataTypes, Sequelize } from 'sequelize';
+// import { Form , Question, Answer, Response } from '../models';
+
+const sequelize = new Sequelize({
+  dialect: 'postgres',
+  host: 'localhost',
+  port: 5432, 
+  username: 'postgres',
+  password: 'may13@1993',
+  database: 'atlandb',
+});
+
+const Form = sequelize.define('Form', {
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  created_by: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+});
+
+const Response = sequelize.define('Response', {});
+
+const Question = sequelize.define('Question', {
+  text: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  mandatory: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+});
+
+const Answer = sequelize.define('Answer', {
+  text: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+});
+
+Form.hasMany(Question, { onDelete: 'CASCADE', as: 'questions' });
+Question.belongsTo(Form);
+
+Form.hasMany(Response, { onDelete: 'CASCADE', as: 'responses' });
+Response.belongsTo(Form);
+
+Response.hasMany(Answer, { onDelete: 'CASCADE', as: 'answers' });
+Answer.belongsTo(Response);
+Question.hasMany(Answer, { onDelete: 'CASCADE', as: 'answers' });
+Answer.belongsTo(Question);
+
+// Create the table
+(async () => {
+  try {
+    await sequelize.sync({ alter: true });
+    console.log('Tables and associations synchronized successfully.');
+  } catch (error) {
+    console.error('Error synchronizing tables:', error);
+  }
+})();
+
+// Call the function to create the table
+
+export {
+  sequelize,
+  Question,
+  Answer,
+  Form,
+  Response
+};
