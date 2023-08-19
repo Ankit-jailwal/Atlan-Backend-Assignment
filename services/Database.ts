@@ -56,19 +56,7 @@ Answer.belongsTo(Response);
 Question.hasMany(Answer, { onDelete: 'CASCADE', as: 'answers' });
 Answer.belongsTo(Question);
 
-// Create the table
-(async () => {
-  try {
-    await sequelize.sync({ alter: true });
-    console.log('Tables and associations synchronized successfully.');
-  } catch (error) {
-    console.error('Error synchronizing tables:', error);
-  }
-})();
-
-// Call the function to create the table
-
-export {
+export const database = {
   sequelize,
   Question,
   Answer,

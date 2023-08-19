@@ -1,17 +1,18 @@
-// import { Sequelize, DataTypes } from 'sequelize';
-// import { Answer, Form } from '.';
-// import sequelize from '../services/Database';
+import { DataTypes, Model } from 'sequelize';
+import { database } from '../services/Database';
 
+class Question extends Model {}
 
-// const Question = sequelize.define('Question', {
-//     text: {
-//       type: DataTypes.STRING,
-//       allowNull: false,
-//     },
-//     mandatory: {
-//       type: DataTypes.BOOLEAN,
-//       defaultValue: false,
-//     },
-//   });
+Question.init(
+  {
+    text: {
+      type: DataTypes.TEXT
+    }
+  },
+  {
+    sequelize: database.sequelize,
+    modelName: 'Question'
+  }
+);
 
-// export { Question }
+export const QuestionModel = Question;
