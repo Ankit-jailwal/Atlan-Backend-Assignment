@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const StartServer = async () => {
     
-    const app = express();
+    c
 
     // Database connection
     try {
