@@ -1,14 +1,7 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import  { FormModel, ResponseModel }  from '../models';
+import { sequelize } from '../middleware/sequelize';
 
-const sequelize = new Sequelize({
-  dialect: 'postgres',
-  host: 'localhost',
-  port: 5432, 
-  username: 'postgres',
-  password: 'may13@1993',
-  database: 'atlandb',
-});
 
 const Form = sequelize.define<FormModel>('Form', {
   title: {
@@ -48,7 +41,6 @@ const Answer = sequelize.define('Answer', {
 // Associations
 Form.hasMany(Question, { onDelete: 'CASCADE', as: 'questions' });
 Question.belongsTo(Form);
-
 Form.hasMany(Response, { onDelete: 'CASCADE', as: 'responses' });
 Response.belongsTo(Form);
 Response.belongsTo(Question);

@@ -67,6 +67,7 @@ export const FillForm = async (req: Request, res: Response) => {
           { model: database.Question, as: 'questions' },
         ],
       });
+
   
       if (!form) {
         return res.status(404).json({ error: 'Form not found.' });
@@ -80,7 +81,7 @@ export const FillForm = async (req: Request, res: Response) => {
       for (const answerData of answers) {
         const { QuestionId, text } = answerData;
         const question = formWithQuestions.questions.find(q => q.id === QuestionId);
-  
+        
         if (!question) {
           return res.status(400).json({ error: `Question with ID ${QuestionId} not found in the form.` });
         }
@@ -88,7 +89,8 @@ export const FillForm = async (req: Request, res: Response) => {
         await database.Answer.create({ ResponseId: response.id, QuestionId, text });
       }
   
-      res.status(201).json({ message: 'Questions answered successfully.' });
+      res.status(201).json(response);
+    //   res.status(201).json({ message: 'Questions answered successfully.' });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'An error occurred while answering questions.' });

@@ -5,6 +5,6 @@ import { GetQuestion } from "../controller/QuestionController";
 const router = express.Router()
 
 
-router.post('/', GetQuestion)
+router.get('/', GetQuestion)
 
 export {router as QuestionRoute}
