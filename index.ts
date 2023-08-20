@@ -2,6 +2,8 @@ import express from 'express';
 import App from './services/ExpressApp';
 import { database } from './services/Database';
 
+require('dotenv').config();
+
 const StartServer = async () => {
     
     const app = express();
@@ -17,7 +19,8 @@ const StartServer = async () => {
 
     // Express App
     await App(app);
-    const port = 8000;
+    const port = process.env.PORT;
+    console.log(port)
     app.listen(port, () => {
         console.log(`Atlan running on port ${port}`);
     });
