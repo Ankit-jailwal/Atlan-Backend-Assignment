@@ -1,20 +1,10 @@
-// import { DataTypes, Model } from 'sequelize';
-// import { sequelize } from '../services/Database'; 
+import { Model } from "sequelize";
 
-// const User = sequelize.define('User', {
-//   id: {
-//     type: DataTypes.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true,
-//   },
-//   username: {
-//     type: DataTypes.STRING,
-//     allowNull: false,
-//   },
-//   email: {
-//     type: DataTypes.STRING,
-//     allowNull: false,
-//   },
-// });
-
-// export { User }
+export interface AnswerModel extends Model {
+  id: number;
+  ResponseId: number;
+  QuestionId: number;
+  text: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}

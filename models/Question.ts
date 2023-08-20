@@ -1,18 +1,7 @@
-import { DataTypes, Model } from 'sequelize';
-import { database } from '../services/Database';
+import { Model } from "sequelize";
 
-class Question extends Model {}
-
-Question.init(
-  {
-    text: {
-      type: DataTypes.TEXT
-    }
-  },
-  {
-    sequelize: database.sequelize,
-    modelName: 'Question'
-  }
-);
-
-export const QuestionModel = Question;
+export interface QuestionModel extends Model {
+  id: number;
+  text: string;
+  mandatory: boolean;
+}

@@ -1,5 +1,5 @@
 import { DataTypes, Sequelize } from 'sequelize';
-// import { Form , Question, Answer, Response } from '../models';
+import  { FormModel, ResponseModel }  from '../models';
 
 const sequelize = new Sequelize({
   dialect: 'postgres',
@@ -10,7 +10,7 @@ const sequelize = new Sequelize({
   database: 'atlandb',
 });
 
-const Form = sequelize.define('Form', {
+const Form = sequelize.define<FormModel>('Form', {
   title: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -25,7 +25,7 @@ const Form = sequelize.define('Form', {
   },
 });
 
-const Response = sequelize.define('Response', {});
+const Response = sequelize.define<ResponseModel>('Response', {});
 
 const Question = sequelize.define('Question', {
   text: {
@@ -45,12 +45,13 @@ const Answer = sequelize.define('Answer', {
   },
 });
 
+// Associations
 Form.hasMany(Question, { onDelete: 'CASCADE', as: 'questions' });
 Question.belongsTo(Form);
 
 Form.hasMany(Response, { onDelete: 'CASCADE', as: 'responses' });
 Response.belongsTo(Form);
-
+Response.belongsTo(Question);
 Response.hasMany(Answer, { onDelete: 'CASCADE', as: 'answers' });
 Answer.belongsTo(Response);
 Question.hasMany(Answer, { onDelete: 'CASCADE', as: 'answers' });

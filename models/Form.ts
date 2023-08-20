@@ -1,19 +1,12 @@
-// import { DataTypes } from 'sequelize';
-// import { sequelize } from '../services/Database'; 
+import { Model } from "sequelize";
+import { QuestionModel } from ".";
 
-// const Form = sequelize.define('Form', {
-//     title: {
-//       type: DataTypes.STRING,
-//       allowNull: false,
-//     },
-//     email: {
-//       type: DataTypes.STRING,
-//       allowNull: true,
-//     },
-//     created_by: {
-//       type: DataTypes.STRING,
-//       allowNull: true,
-//     },
-//   });
-
-// export { Form }
+export interface FormModel extends Model {
+  id: number;
+  title: string;
+  email: string | null;
+  created_by: string | null;
+  questions?: QuestionModel[];
+  createdAt?: Date;
+  updatedAt?: Date;
+}

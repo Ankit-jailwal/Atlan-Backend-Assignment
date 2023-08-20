@@ -10,7 +10,7 @@ router.post('/create', CreateForm)
 router.get('/:formId', GetFormByID)
 // router.post('/:id', FillForm)
 router.post('/:formId/create', CreateQuestion)
-router.post('/:formId/fill', FillForm)
+router.post('/:formId', FillForm)
 
 export {router as FormRoute}
 

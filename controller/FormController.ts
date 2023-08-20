@@ -1,5 +1,6 @@
 import {Request, Response} from 'express'
 import { database } from '../services/Database'
+import { FormModel, QuestionModel, ResponseModel } from '../models';
 
 export const GetForm = async (req: Request, res: Response) => {
     try {
@@ -57,5 +58,39 @@ export const GetFormByID = async (req: Request, res: Response) => {
 }
 
 export const FillForm = async (req: Request, res: Response) => {
+    const { formId } = req.params;
+    const { answers } = req.body;
+  
+    try {
+      const form = await database.Form.findByPk(formId, {
+        include: [
+          { model: database.Question, as: 'questions' },
+        ],
+      });
+  
+      if (!form) {
+        return res.status(404).json({ error: 'Form not found.' });
+      }
+      
+      const formWithQuestions = form as FormModel & { questions: QuestionModel[] };
 
+      const response = await database.Response.create({ FormId: formId }) as ResponseModel;
+
+  
+      for (const answerData of answers) {
+        const { QuestionId, text } = answerData;
+        const question = formWithQuestions.questions.find(q => q.id === QuestionId);
+  
+        if (!question) {
+          return res.status(400).json({ error: `Question with ID ${QuestionId} not found in the form.` });
+        }
+  
+        await database.Answer.create({ ResponseId: response.id, QuestionId, text });
+      }
+  
+      res.status(201).json({ message: 'Questions answered successfully.' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while answering questions.' });
+    }
   }

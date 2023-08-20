@@ -1,8 +1,15 @@
-// import { Answer, Form } from ".";
-// import sequelize from "../services/Database";
+import { Model } from 'sequelize';
 
+interface ResponseAttributes {}
 
-// const Response = sequelize.define('Response', {});
+interface ResponseModel extends Model<ResponseAttributes> {
+  id: number;
+  FormId: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 
-
-// export { Response }
+export {
+  ResponseAttributes,
+  ResponseModel
+};
