@@ -1,6 +1,6 @@
 import { Application } from "express";
 import bodyParser from "body-parser";
-import { HealthRoute, FormRoute } from "../route";
+import { HealthRoute, FormRoute, QuestionRoute } from "../route";
 
 
 export default async (app: Application) => { 
@@ -10,6 +10,6 @@ export default async (app: Application) => {
     // app.use('/admin', AdminRoute)
     app.use('/health', HealthRoute)
     app.use('/form', FormRoute)
-    // app.use('/question', QuestionRoute)
+    app.use('/question', QuestionRoute)
     // app.use('/answer', AnswerRoute)
 }
