@@ -15,7 +15,6 @@ export const GSheetController = async (req: Request, res: Response) => {
     await doc.loadInfo(); 
 
     console.log('Title:', doc.title);
-    await doc.updateProperties({ title: 'renamed doc' });
 
     const sheet = doc.sheetsByIndex[0];
     console.log('Sheet title:', sheet.title);
