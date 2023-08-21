@@ -3,6 +3,7 @@ import { JWT } from 'google-auth-library';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 
 require('dotenv').config();
+
 export const GSheetController = async (req: Request, res: Response) => {
   try {
     const serviceAccountAuth = new JWT({
@@ -12,26 +13,51 @@ export const GSheetController = async (req: Request, res: Response) => {
     });
 
     const doc = new GoogleSpreadsheet('1rSyxb8YEthyVU_FJyz2zsS2VVn2z97_idoPjZ4BGlGU', serviceAccountAuth);
-    await doc.loadInfo(); 
-
-    console.log('Title:', doc.title);
+    await doc.loadInfo();
 
     const sheet = doc.sheetsByIndex[0];
 
-    // Assuming req.body contains the data in the format you provided
     const data = req.body;
 
-    // Load the header row or create one if it doesn't exist
     await sheet.loadHeaderRow();
-    if (!sheet.headerValues.includes('Question ID')) {
-      const header = ['Question ID', 'Question Text', 'Mandatory', 'Created At', 'Updated At'];
+    if (!sheet.headerValues.includes('Form Title')) {
+      const header = ['Form Title', 'Question', 'Answer', 'Response ID', 'Form ID'];
       await sheet.setHeaderRow(header);
     }
 
-    // Insert data into the sheet
     for (const question of data.questions) {
-      const values = [question.id, question.text, question.mandatory, question.createdAt, question.updatedAt];
+      const values = [
+        data.form.title,
+        question.text,
+        question.answers[0]?.text || '',
+        data.responseId,
+        data.form.id,
+      ];
       await sheet.addRow(values);
+    }
+
+    await sheet.loadCells('A1:E1');
+
+    const formTitleCell = sheet.getCell(0, 0); 
+    formTitleCell.value = 'Form Title';
+    formTitleCell.textFormat = { bold: true, fontSize: 14 };
+    // formTitleCell. = { horizontal: 'CENTER' };
+    formTitleCell.save();
+
+    const headerCells = [
+      sheet.getCell(0, 1), 
+      sheet.getCell(0, 2), 
+      sheet.getCell(0, 3), 
+      sheet.getCell(0, 4),
+    ];
+    const headerLabels = ['Question', 'Answer', 'Response ID', 'Form ID'];
+
+    for (let i = 0; i < headerCells.length; i++) {
+      const headerCell = headerCells[i];
+      headerCell.value = headerLabels[i];
+      headerCell.textFormat = { bold: true, fontSize: 12 };
+    //   headerCell.alignment = { horizontal: 'CENTER' };
+      headerCell.save();
     }
 
     res.status(200).json({ message: 'Data added to Google Sheet.' });

@@ -50,6 +50,7 @@ export const GetResponseById = async (req: Request, res: Response) => {
     
         
         const responseWithDetails = {
+          responseId: response.id,
           form: form.toJSON(),
           questions: questionsWithAnswers,
         };

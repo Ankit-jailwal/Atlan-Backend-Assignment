@@ -33,6 +33,7 @@ export const UpdateGoogleSheet = async (responseId: Identifier | undefined) => {
   
       
       const responseWithDetails = {
+        responseId: response.id,
         form: form?.toJSON(),
         questions: questionsWithAnswers,
       };
