@@ -19,9 +19,12 @@ const StartServer = async () => {
 
     // Express App
     await App(app);
-    const port = process.env.PORT;
+    const port = process.env.PORT || 8000;
     console.log(port)
-    app.listen(port, () => {
+
+    const host = '0.0.0.0';
+
+    app.listen(8000, host, () => {
         console.log(`Atlan running on port ${port}`);
     });
 };

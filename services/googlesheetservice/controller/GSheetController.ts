@@ -6,6 +6,11 @@ require('dotenv').config();
 
 export const GSheetController = async (req: Request, res: Response) => {
   try {
+    console.log("Hey")
+    console.log(process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL)
+    console.log(process.env.GOOGLE_PRIVATE_KEY)
+    return res.status(200).json("Hmmmm")
+
     const serviceAccountAuth = new JWT({
       email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
       key: process.env.GOOGLE_PRIVATE_KEY,

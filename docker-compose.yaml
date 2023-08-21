@@ -1,0 +1,26 @@
+version: '3'
+services:
+  main-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.main
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
+  googlesheet-service:
+    build:
+      context: ./services/googlesheetservice
+      dockerfile: Dockerfile.googlesheet
+    ports:
+      - "8001:8001"
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: atlandb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: may13@1993
+    ports:
+      - "5432:5432"
