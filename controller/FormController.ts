@@ -2,6 +2,7 @@ import {Request, Response} from 'express'
 import { database } from '../services/Database'
 import { FormModel, QuestionModel, ResponseModel } from '../models';
 import { UpdateGoogleSheet } from '../postprocessing/UpdateGoogleSheet';
+import { GSheetQueue } from '../messagequeue/GSheetQueue';
 
 export const GetForm = async (req: Request, res: Response) => {
     try {
@@ -10,7 +11,7 @@ export const GetForm = async (req: Request, res: Response) => {
         if (forms !== null && forms.length > 0) {
             return res.json(forms); 
         }
-
+        await GSheetQueue()
         return res.json({"message" : "No Forms exist"});
     
     } catch (error) {
@@ -100,4 +101,3 @@ export const FillForm = async (req: Request, res: Response) => {
       res.status(500).json({ error: 'An error occurred while answering questions.' });
     }
   }
-

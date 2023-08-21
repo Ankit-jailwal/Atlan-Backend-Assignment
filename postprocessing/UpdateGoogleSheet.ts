@@ -39,7 +39,7 @@ export const UpdateGoogleSheet = async (responseId: Identifier | undefined) => {
       };
       
       console.log(responseWithDetails);
-      await GSheetQueue(responseWithDetails)
+      // await GSheetQueue(responseWithDetails)
       return
     } catch (error) {
       console.error(error);

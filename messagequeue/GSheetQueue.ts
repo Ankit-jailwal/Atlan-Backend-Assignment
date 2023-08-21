@@ -1,16 +1,23 @@
-import amqp from 'amqplib'
+import amqp from 'amqplib';
 
-export const GSheetQueue = async (form: any) => {
+export const GSheetQueue = async () => {
     try {
-        // const connection = await amqp.connect('amqp://localhost:5672'); 
-        // const channel = await connection.createChannel();
-        // const queueName = 'googlesheet';
-        // await channel.assertQueue(queueName);
-        // await channel.sendToQueue(queueName, Buffer.from(JSON.stringify(form)));
+        const connection = await amqp.connect('amqp://rabbitmq');
+        const channel = await connection.createChannel();
 
-        console.log('Form sent to queue');
-    } catch(error) {
+        const queueName = 'googlesheet';
+        const message = 'Message from node 1';
+
+        await channel.assertQueue(queueName, { durable: false });
+        channel.sendToQueue(queueName, Buffer.from(message));
+
+        console.log(`Sent: ${message}`);
+
+        setTimeout(() => {
+            connection.close();
+        }, 500);
+    } catch (error) {
         console.error(error);
-        console.log('An error occured while inserting form into the queue')
-    }  
-}
+        console.log('An error occurred while inserting form into the queue');
+    }
+};
