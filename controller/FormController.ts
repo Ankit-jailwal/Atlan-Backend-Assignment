@@ -1,6 +1,7 @@
 import {Request, Response} from 'express'
 import { database } from '../services/Database'
 import { FormModel, QuestionModel, ResponseModel } from '../models';
+import { UpdateGoogleSheet } from '../postprocessing/UpdateGoogleSheet';
 
 export const GetForm = async (req: Request, res: Response) => {
     try {
@@ -88,7 +89,10 @@ export const FillForm = async (req: Request, res: Response) => {
   
         await database.Answer.create({ ResponseId: response.id, QuestionId, text });
       }
-  
+      
+      // Update GoogleSheet
+      await UpdateGoogleSheet(response.id)
+
       res.status(201).json(response);
     //   res.status(201).json({ message: 'Questions answered successfully.' });
     } catch (error) {
@@ -96,3 +100,4 @@ export const FillForm = async (req: Request, res: Response) => {
       res.status(500).json({ error: 'An error occurred while answering questions.' });
     }
   }
+
