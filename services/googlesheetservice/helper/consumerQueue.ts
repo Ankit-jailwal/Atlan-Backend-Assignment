@@ -1,4 +1,5 @@
 import amqp from 'amqplib';
+import { GSheetController } from '../controller/GSheetController';
 
 export const consumerQueue = async () => {
 
@@ -13,11 +14,15 @@ export const consumerQueue = async () => {
 
             await channel.assertQueue(queueName, { durable: false });
 
-            console.log(`Waiting for messages in ${queueName}. To exit press CTRL+C`);
+            console.log(`Waiting for form submission in ${queueName}.`);
 
-            channel.consume(queueName, (message) => {
-                if (message) {
-                    console.log(`Received: ${message.content.toString()}`);
+            channel.consume(queueName, async (form) => {
+                if (form) {
+                    const receivedForm = form.content.toString(); // Convert buffer to string
+                    // const parsedForm = JSON.parse(receivedForm);
+                    // console.log("Data here!!!!")
+                    // console.log(parsedForm)
+                    await GSheetController(receivedForm)
                 }
             }, { noAck: true });
         } catch (error) {

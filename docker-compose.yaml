@@ -18,7 +18,8 @@ services:
       - "8001:8001"
     depends_on:
       - rabbitmq
-
+      - main-service
+      
   postgres:
     image: postgres:latest
     environment:

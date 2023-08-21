@@ -4,7 +4,7 @@ import { GoogleSpreadsheet } from 'google-spreadsheet';
 
 require('dotenv').config();
 
-export const GSheetController = async (req: Request, res: Response) => {
+export const GSheetController = async (form : string) => {
   try {
 
     const serviceAccountAuth = new JWT({
@@ -18,7 +18,7 @@ export const GSheetController = async (req: Request, res: Response) => {
 
     const sheet = doc.sheetsByIndex[0];
 
-    const data = req.body;
+    const data = JSON.parse(form);
 
     await sheet.loadHeaderRow();
     if (!sheet.headerValues.includes('Form Title')) {
@@ -42,7 +42,6 @@ export const GSheetController = async (req: Request, res: Response) => {
     const formTitleCell = sheet.getCell(0, 0); 
     formTitleCell.value = 'Form Title';
     formTitleCell.textFormat = { bold: true, fontSize: 14 };
-    // formTitleCell. = { horizontal: 'CENTER' };
     formTitleCell.save();
 
     const headerCells = [
@@ -57,14 +56,13 @@ export const GSheetController = async (req: Request, res: Response) => {
       const headerCell = headerCells[i];
       headerCell.value = headerLabels[i];
       headerCell.textFormat = { bold: true, fontSize: 12 };
-    //   headerCell.alignment = { horizontal: 'CENTER' };
       headerCell.save();
     }
 
-    res.status(200).json({ message: 'Data added to Google Sheet.' });
+    console.log('Data added to Google Sheet.');
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred while adding data to Google Sheet.' });
+    console.log('An error occurred while adding data to Google Sheet.');
   }
 };

@@ -1,17 +1,17 @@
 import amqp from 'amqplib';
 
-export const GSheetQueue = async () => {
+export const GSheetQueue = async (form: any) => {
     try {
         const connection = await amqp.connect('amqp://rabbitmq');
         const channel = await connection.createChannel();
 
         const queueName = 'googlesheet';
-        const message = 'Message from node 1';
 
         await channel.assertQueue(queueName, { durable: false });
-        channel.sendToQueue(queueName, Buffer.from(message));
+        const stringForm = JSON.stringify(form)
+        channel.sendToQueue(queueName, Buffer.from(stringForm));
 
-        console.log(`Sent: ${message}`);
+        console.log(`Sent: ${form}`);
 
         setTimeout(() => {
             connection.close();

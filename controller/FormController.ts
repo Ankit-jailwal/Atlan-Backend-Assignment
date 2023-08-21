@@ -11,7 +11,7 @@ export const GetForm = async (req: Request, res: Response) => {
         if (forms !== null && forms.length > 0) {
             return res.json(forms); 
         }
-        await GSheetQueue()
+
         return res.json({"message" : "No Forms exist"});
     
     } catch (error) {
