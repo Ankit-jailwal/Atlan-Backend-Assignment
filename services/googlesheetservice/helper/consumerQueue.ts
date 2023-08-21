@@ -18,10 +18,7 @@ export const consumerQueue = async () => {
 
             channel.consume(queueName, async (form) => {
                 if (form) {
-                    const receivedForm = form.content.toString(); // Convert buffer to string
-                    // const parsedForm = JSON.parse(receivedForm);
-                    // console.log("Data here!!!!")
-                    // console.log(parsedForm)
+                    const receivedForm = form.content.toString(); 
                     await GSheetController(receivedForm)
                 }
             }, { noAck: true });
