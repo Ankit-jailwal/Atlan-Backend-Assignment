@@ -17,13 +17,27 @@ export const GSheetController = async (req: Request, res: Response) => {
     console.log('Title:', doc.title);
 
     const sheet = doc.sheetsByIndex[0];
-    console.log('Sheet title:', sheet.title);
-    console.log('Row count:', sheet.rowCount);
 
-    res.status(200).json({ message: 'Google Sheet data fetched and logged.' });
+    // Assuming req.body contains the data in the format you provided
+    const data = req.body;
+
+    // Load the header row or create one if it doesn't exist
+    await sheet.loadHeaderRow();
+    if (!sheet.headerValues.includes('Question ID')) {
+      const header = ['Question ID', 'Question Text', 'Mandatory', 'Created At', 'Updated At'];
+      await sheet.setHeaderRow(header);
+    }
+
+    // Insert data into the sheet
+    for (const question of data.questions) {
+      const values = [question.id, question.text, question.mandatory, question.createdAt, question.updatedAt];
+      await sheet.addRow(values);
+    }
+
+    res.status(200).json({ message: 'Data added to Google Sheet.' });
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred while fetching Google Sheet data.' });
+    res.status(500).json({ error: 'An error occurred while adding data to Google Sheet.' });
   }
 };
