@@ -8,7 +8,8 @@ const StartServer = async () => {
     const port = 8002;
     const host = '0.0.0.0';
 
-    await consumerQueue()
+    await consumerQueue();
+    
     app.listen(port, host, () => {
         console.log("Sms service running on port 8002");
     });

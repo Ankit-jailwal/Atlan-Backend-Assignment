@@ -19,6 +19,16 @@ services:
     depends_on:
       - rabbitmq
       - main-service
+
+  sms-service:
+    build:
+      context: ./services/smsservice
+      dockerfile: Dockerfile.smsservice
+    ports:
+      - "8002:8002"
+    depends_on:
+      - rabbitmq
+      - main-service
       
   postgres:
     image: postgres:latest

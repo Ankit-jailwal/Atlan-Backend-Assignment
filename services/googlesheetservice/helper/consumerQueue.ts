@@ -4,7 +4,7 @@ import { GSheetController } from '../controller/GSheetController';
 export const consumerQueue = async () => {
 
     const queueName = 'googlesheet';
-    const maxRetries = 10;
+    const maxRetries = 20;
     let retries = 0;
 
     const connectAndConsume = async () => {

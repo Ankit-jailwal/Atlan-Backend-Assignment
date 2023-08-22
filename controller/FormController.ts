@@ -3,6 +3,7 @@ import { database } from '../services/Database'
 import { FormModel, QuestionModel, ResponseModel } from '../models';
 import { UpdateGoogleSheet } from '../postprocessing/UpdateGoogleSheet';
 import { GSheetQueue } from '../messagequeue/GSheetQueue';
+import { SendMessage } from '../postprocessing/SendMessage';
 
 export const GetForm = async (req: Request, res: Response) => {
     try {
@@ -93,7 +94,7 @@ export const FillForm = async (req: Request, res: Response) => {
       
       // Update GoogleSheet
       await UpdateGoogleSheet(response.id)
-
+      await SendMessage(form)
       res.status(201).json(response);
     //   res.status(201).json({ message: 'Questions answered successfully.' });
     } catch (error) {
