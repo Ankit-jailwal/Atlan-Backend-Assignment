@@ -1,10 +1,8 @@
 import express from 'express';
-import App from './helper/ExpressApp';
 import { consumerQueue } from './helper/consumerQueue';
 
 const StartServer = async () => {
     const app = express();
-    await App(app);
 
     const port = 8001;
     const host = '0.0.0.0';
