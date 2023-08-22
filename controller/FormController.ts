@@ -92,11 +92,12 @@ export const FillForm = async (req: Request, res: Response) => {
         await database.Answer.create({ ResponseId: response.id, QuestionId, text });
       }
       
+      // SMS Service
+      await SendMessage(form)
       // Update GoogleSheet
       await UpdateGoogleSheet(response.id)
-      await SendMessage(form)
-      res.status(201).json(response);
-    //   res.status(201).json({ message: 'Questions answered successfully.' });
+      
+      res.status(201).json({ message: 'Questions answered successfully.' });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'An error occurred while answering questions.' });

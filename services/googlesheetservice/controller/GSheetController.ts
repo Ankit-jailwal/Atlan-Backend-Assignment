@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import { JWT } from 'google-auth-library';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 
