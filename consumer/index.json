@@ -1,0 +1,29 @@
+
+{
+    "consumer": [
+        {
+            "name": "Wadu",
+            "email": "wadu@bitbots.io",
+            "company": "BitBots",
+            "service": "googlesheet"
+        },
+        {
+            "name": "Czar Panther",
+            "email": "czar@bitbots.io",
+            "company": "BitBots",
+            "service": "googlesheet"
+        },
+        {
+            "name": "Crimson",
+            "email": "crimson@noobtech.io",
+            "company": "NoobTech",
+            "service": "twiliosms"
+        },
+        {
+            "name": "Ashu",
+            "email": "ashu@noobtech.io",
+            "company": "NoobTech",
+            "service": "twiliosms"
+        }
+    ]
+}

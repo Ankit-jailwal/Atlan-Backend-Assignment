@@ -11,7 +11,7 @@ export const GSheetController = async (form : string) => {
       key: process.env.GOOGLE_PRIVATE_KEY,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
-
+    
     const doc = new GoogleSpreadsheet('1rSyxb8YEthyVU_FJyz2zsS2VVn2z97_idoPjZ4BGlGU', serviceAccountAuth);
     await doc.loadInfo();
 

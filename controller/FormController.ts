@@ -2,10 +2,10 @@ import {Request, Response} from 'express'
 import { database } from '../services/Database'
 import { FormModel, QuestionModel, ResponseModel } from '../models';
 import { UpdateGoogleSheet } from '../postprocessing/UpdateGoogleSheet';
-import { GSheetQueue } from '../messagequeue/GSheetQueue';
 import { SendMessage } from '../postprocessing/SendMessage';
+// import * as fs from 'fs';
 
-export const GetForm = async (req: Request, res: Response) => {
+export const GetForm = async (res: Response) => {
     try {
         const forms = await database.Form.findAll();
         
@@ -25,7 +25,7 @@ export const CreateForm = async (req: Request, res: Response) => {
     try {
       console.log(req.body)
       const { title, email, created_by } = req.body;
-
+      
       const form = await database.Form.create({ title, email, created_by });
 
       res.status(201).json(form);
@@ -87,11 +87,16 @@ export const FillForm = async (req: Request, res: Response) => {
         
         if (!question) {
           return res.status(400).json({ error: `Question with ID ${QuestionId} not found in the form.` });
+        } else if (question.mandatory && answerData?.text === null) {
+            return res.status(428).json({error: `Please answer all mandatory questions!`})
         }
   
         await database.Answer.create({ ResponseId: response.id, QuestionId, text });
       }
       
+
+      // const dataString = fs.readFileSync('../consumer/index.json', 'utf8');
+      // const consumerData = JSON.parse(dataString)
       // SMS Service
       await SendMessage(form)
       // Update GoogleSheet

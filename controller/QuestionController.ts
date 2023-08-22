@@ -34,4 +34,4 @@ export const CreateQuestion = async (req: Request, res: Response) => {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while creating the question.' });
     }
-  };
+};
