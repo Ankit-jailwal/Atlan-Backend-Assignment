@@ -1,4 +1,5 @@
 import amqp from 'amqplib';
+import { twilioController } from '../controller/twilioController';
 
 export const consumerQueue = async () => {
 
@@ -18,7 +19,7 @@ export const consumerQueue = async () => {
             channel.consume(queueName, async (message) => {
                 if (message) {
                     const receivedMessage = message.content.toString(); 
-                    console.log(receivedMessage)
+                    await twilioController(receivedMessage)
                 }
             }, { noAck: true });
         } catch (error) {
