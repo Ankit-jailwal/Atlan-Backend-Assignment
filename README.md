@@ -1,5 +1,7 @@
 # Atlan Backend Assignment
 
+![Atlan Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Atlan-logo-full.svg/500px-Atlan-logo-full.svg.png)
+
 ## Table of Contents
 - [Tech Stack](#tech-stack)
 - [Installation](#installation)
@@ -8,7 +10,6 @@
 - [Project Structure](#project-structure)
 - [API Endpoint](#api-endpoint)
 - [Monitoring and Logging](#monitoring-and-logging)
-- [Screenshots and Video](#screenshots-and-video)
 
 ---
 
@@ -18,6 +19,12 @@
 
 
 ## Installation
+
+### Prerequisites
+1. Docker
+2. PostgreSQL
+3. npm
+   
 To get started with the project, follow these steps:
 
 1. Clone the repository:
@@ -62,7 +69,7 @@ I have used Sequelize, a Node.js ORM, to manage the database. It defines models 
 
 ## Architecture
 
-![Atlan Architecture drawio (1)](https://github.com/Ankit-jailwal/Atlan-Backend-Assignment/assets/55527244/6bef2258-5b2a-4909-a61b-e99abd546bc4)
+![Atlan Architecture drawio (2)](https://github.com/Ankit-jailwal/Atlan-Backend-Assignment/assets/55527244/6d0813a5-2211-4fee-9a90-37bd8831691e)
 
 ### Overview
 
@@ -183,6 +190,20 @@ To retrieve logs for a specific service, you can use the following Docker Compos
 ```
 docker-compose logs <service-name>
 ```
+
+### Scalability and Fault Tolerance: Kubernetes Integration
+
+To elevate scalability and fortify fault tolerance, we can integrate Kubernetes. This container orchestration solution offers:
+
+- **Automated Scaling:** Utilizes Horizontal Pod Autoscaling for dynamic resource adjustments based on metrics.
+- **High Availability:** Benefit from Replication Controllers and Deployments for swift recovery from pod failures.
+- **Efficient Load Balancing:** Employ Kubernetes Services for even traffic distribution across pods.
+- **Seamless Updates:** Facilitate controlled rolling updates and quick rollbacks.
+- **Stateful Application Support:** Leverage StatefulSets for orderly scaling and recovery.
+- **Robust Fault Tolerance:** Automatic pod restarts and node rescheduling in case of failures.
+- **Self-Healing:** Kubernetes maintains desired application states, minimizing manual interventions.
+
+The proposed Kubernetes integration empowers the project with advanced capabilities to handle varying demands and maintain stability even during unexpected events.
 
 
 
