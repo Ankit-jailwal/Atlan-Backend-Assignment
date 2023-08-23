@@ -5,7 +5,7 @@ import { UpdateGoogleSheet } from '../postprocessing/UpdateGoogleSheet';
 import { SendMessage } from '../postprocessing/SendMessage';
 // import * as fs from 'fs';
 
-export const GetForm = async (res: Response) => {
+export const GetForm = async (req: Request, res: Response) => {
     try {
         const forms = await database.Form.findAll();
         
