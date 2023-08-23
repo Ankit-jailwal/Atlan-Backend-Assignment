@@ -16,7 +16,8 @@ export const GetForm = async (res: Response) => {
         return res.json({"message" : "No Forms exist"});
     
     } catch (error) {
-        res.status(500).json({ error: error });
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while getting all forms.' });
     }
 };
 
@@ -34,7 +35,6 @@ export const CreateForm = async (req: Request, res: Response) => {
 
       console.error(error);
       res.status(500).json({ error: 'An error occurred while creating the form.' });
-
     }
   };
 

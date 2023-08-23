@@ -9,6 +9,11 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   googlesheet-service:
     build:
@@ -19,6 +24,11 @@ services:
     depends_on:
       - rabbitmq
       - main-service
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   sms-service:
     build:
@@ -29,7 +39,12 @@ services:
     depends_on:
       - rabbitmq
       - main-service
-      
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
   postgres:
     image: postgres:latest
     environment:
@@ -38,9 +53,18 @@ services:
       POSTGRES_PASSWORD: may13@1993
     ports:
       - "5432:5432"
-  
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   rabbitmq:
     image: "rabbitmq:3-management"
     ports:
       - "5672:5672"
       - "15672:15672"
+
+volumes:
+  postgres_data:
+
+networks:
+  elk:
+    driver: bridge
