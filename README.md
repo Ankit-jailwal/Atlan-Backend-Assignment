@@ -15,7 +15,7 @@
 
 ## Tech Stack
 
-![Node.js](https://img.icons8.com/color/48/000000/nodejs.png) ![Express.js](https://img.icons8.com/color/48/000000/express.png) ![Typescript](https://img.icons8.com/color/48/000000/typescript.png) ![PostgreSQL](https://img.icons8.com/color/48/000000/postgreesql.png) <img src="https://cdn.hackr.io/uploads/topics_svg/1536904432qt5UqxetWn.svg" alt="RabbitMQ Icon" width="48" height="48"> ![Docker Compose](https://img.icons8.com/color/48/000000/docker.png)  ![Twilio](https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/000000/external-twilio-is-a-cloud-communications-platform-as-a-service-company-logo-color-tal-revivo.png) ![Google Sheets](https://img.icons8.com/color/48/000000/google-sheets.png)
+![Node.js](https://img.icons8.com/color/48/000000/nodejs.png) <img src="https://geekflare.com/wp-content/uploads/2023/01/expressjs.png" alt="ExpressJS Logo" height="48">![PostgreSQL](https://img.icons8.com/color/48/000000/postgreesql.png) <img src="https://cdn.hackr.io/uploads/topics_svg/1536904432qt5UqxetWn.svg" alt="RabbitMQ Icon" width="48" height="48"> ![Docker Compose](https://img.icons8.com/color/48/000000/docker.png)  ![Twilio](https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/000000/external-twilio-is-a-cloud-communications-platform-as-a-service-company-logo-color-tal-revivo.png) ![Google Sheets](https://img.icons8.com/color/48/000000/google-sheets.png)
 
 
 ## Installation
