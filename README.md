@@ -95,7 +95,12 @@ RabbitMQ enables async message exchange between the main service and plug-and-pl
 
 ### Google Sheet Integration
 
-One service integrates the Google Sheets API. It acquires and writes data to a Google Sheet, expanding data storage options.
+One service integrates the Google Sheets API. It acquires and writes data to a Google Sheet, expanding data storage options. 
+
+Google Sheet URL:
+```
+https://docs.google.com/spreadsheets/d/1rSyxb8YEthyVU_FJyz2zsS2VVn2z97_idoPjZ4BGlGU/edit#gid=0
+```
 
 ### Twilio SMS Integration
 
