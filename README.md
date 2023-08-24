@@ -10,6 +10,8 @@
 - [Project Structure](#project-structure)
 - [API Endpoint](#api-endpoint)
 - [Monitoring and Logging](#monitoring-and-logging)
+- [Scalability and Fault Tolerance: Kubernetes Integration](#scalability-and-fault-tolerance-kubernetes-integration)
+
 
 ---
 
@@ -29,14 +31,14 @@ To get started with the project, follow these steps:
 
 1. Clone the repository:
    ```
-   `https://github.com/Ankit-jailwal/Atlan-Backend-Assignment.git`
+   https://github.com/Ankit-jailwal/Atlan-Backend-Assignment.git
    ```
    
 2. Set up environment variables. Copy the `.env.example` file to `.env` and fill in the required values in all three services(main service, google sheet service and twilio service).
 
 3. Navigate to the project directory and run:
    ``` 
-   `docker-compose up --build`
+   docker-compose up --build
    ```
    Note: Make sure docker is running
   
@@ -196,7 +198,7 @@ To retrieve logs for a specific service, you can use the following Docker Compos
 docker-compose logs <service-name>
 ```
 
-### Scalability and Fault Tolerance: Kubernetes Integration
+## Scalability and Fault Tolerance: Kubernetes Integration
 
 To elevate scalability and fortify fault tolerance, we can integrate Kubernetes. This container orchestration solution offers:
 
